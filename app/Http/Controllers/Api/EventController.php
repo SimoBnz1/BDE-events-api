@@ -11,7 +11,18 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
+    public function index(Request $request)
+    {
+        $query = Event::query();
+
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+
+        $events = $query->latest()->get();
+
+        return response()->json($events);
+    }
 
     /**
      * Store a newly created resource in storage.
