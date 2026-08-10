@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
   Calendar,
@@ -28,27 +27,37 @@ export const Home = () => {
       setError(null);
 
       let url = API_URL;
-
       if (category !== "all") {
         url += `?category=${category}`;
       }
 
-      const response = await fetch(url);
+     
+      const response = await fetch(url, {
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      });
 
       if (!response.ok) {
-        throw new Error("Impossible de récupérer les événements.");
+        throw new Error(`Erreur HTTP: ${response.status}`);
       }
 
       const data = await response.json();
 
-      // Support de plusieurs formats possibles venant de Laravel
-      const eventsData = Array.isArray(data)
-        ? data
-        : data.data || data.events || [];
+     
+      let eventsData = [];
+      if (Array.isArray(data)) {
+        eventsData = data;
+      } else if (data && Array.isArray(data.data)) {
+        eventsData = data.data;
+      } else if (data && Array.isArray(data.events)) {
+        eventsData = data.events;
+      }
 
       setEvents(eventsData);
     } catch (err) {
-      console.error(err);
+      console.error("Fetch error details:", err);
       setError("Impossible de charger les événements.");
       setEvents([]);
     } finally {
@@ -67,7 +76,7 @@ export const Home = () => {
   return (
     <div className="bg-[#050816] text-white font-sans antialiased min-h-screen flex flex-col relative selection:bg-[#06B6D4] selection:text-[#050816]">
 
-      {/* Background Grid */}
+   
       <div className="fixed inset-0 opacity-30 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
       {/* ================= NAVBAR ================= */}
@@ -303,7 +312,7 @@ export const Home = () => {
                     event.reservations_count >= event.capacity - 10 &&
                     event.reservations_count < event.capacity && (
                       <span className="absolute bottom-4 left-4 bg-purple-500/20 border border-purple-500/40 text-purple-300 text-xs font-mono px-2.5 py-1 rounded-lg backdrop-blur-md animate-pulse">
-                        🔥 Seulement quelques places !
+                         Seulement quelques places !
                       </span>
                     )}
 
