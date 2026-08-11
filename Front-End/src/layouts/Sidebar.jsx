@@ -75,14 +75,11 @@ export default function Sidebar() {
           </div>
         </div>
       </aside>
-
-      {/* ================= MAIN CONTAINER ================= */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
         
         {/* NAVBAR */}
         <header className="h-20 bg-[#080d21]/60 backdrop-blur-xl border-b border-white/10 flex items-center justify-between px-8 shrink-0">
           
-          {/* Search Bar & Mobile Menu */}
           <div className="flex items-center gap-4 flex-1 max-w-md">
             <button className="text-gray-400 hover:text-white md:hidden">
               <Menu className="w-5 h-5" />
@@ -131,7 +128,6 @@ export default function Sidebar() {
                 <LogOut className="w-4 h-4" />
               </button>
             </div>
-
           </div>
         </header>
 
