@@ -76,8 +76,6 @@ class EventController extends Controller
             'event'=>$event
         ]);
     }
-    
-
     /**
      * Remove the specified resource from storage.
      */
