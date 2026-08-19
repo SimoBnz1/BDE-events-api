@@ -76,6 +76,7 @@ class EventController extends Controller
             'event'=>$event
         ]);
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -87,7 +88,7 @@ class EventController extends Controller
             'mssg'=>'events deleted successfly',
             'event'=>$event
         ]);
-        
+
         
     }
 }

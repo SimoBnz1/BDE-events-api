@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   
     public function login(Request $request)
     {
         $request->validate([
@@ -36,11 +34,10 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function logout(Request $request)
     {
+
         $request->user()->currentAccesToken()->delete();
         return response()->json([
             'messg'=>'Logged out successfuly'
